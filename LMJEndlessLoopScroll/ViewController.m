@@ -24,9 +24,8 @@
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     _contentViewsDataArr = [NSMutableArray array];
-    
     NSArray *colorArray = @[[UIColor cyanColor],[UIColor blueColor],[UIColor greenColor],[UIColor yellowColor],[UIColor purpleColor]];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 2; i++) {
         UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 200)];
         tempLabel.backgroundColor = colorArray[i];
         tempLabel.textAlignment   = NSTextAlignmentCenter;
@@ -36,17 +35,22 @@
     }
     
     
+    
+    
+    
+    
     LMJEndlessLoopScrollView * scrollView = [[LMJEndlessLoopScrollView alloc] initWithFrame:CGRectMake(20, 100, 280, 200) animationScrollDuration:3];
-    scrollView.delegate = self;
+    scrollView.delegate        = self;
     scrollView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scrollView];
     
+
     
 }
 
 #pragma mark - LMJEndlessLoopScrollView Delegate
 - (NSInteger)numberOfContentViewsInLoopScrollView:(LMJEndlessLoopScrollView *)loopScrollView{
-    return 5;
+    return _contentViewsDataArr.count;
 }
 
 - (UIView *)loopScrollView:(LMJEndlessLoopScrollView *)loopScrollView contentViewAtIndex:(NSInteger)index{
@@ -54,7 +58,11 @@
 }
 
 - (void)loopScrollView:(LMJEndlessLoopScrollView *)loopScrollView didSelectContentViewAtIndex:(NSInteger)index{
-    NSLog(@"---------%ld",index);
+    NSLog(@"----点击-----%ld",index);
+}
+
+- (void)loopScrollView:(LMJEndlessLoopScrollView *)loopScrollView currentContentViewAtIndex:(NSInteger)index{
+    NSLog(@"----当前-----%ld",index);
 }
 
 @end

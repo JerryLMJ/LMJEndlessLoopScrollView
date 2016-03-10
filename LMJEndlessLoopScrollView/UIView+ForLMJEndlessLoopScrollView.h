@@ -1,5 +1,5 @@
 //
-//  NSTimer+ForLMJEndlessLoopScrollView.h
+//  UIView+ForLMJEndlessLoopScrollView.h
 //  LMJEndlessLoopScroll
 //
 //  Created by Major on 16/3/10.
@@ -10,15 +10,10 @@
 //  iOS开发者公会-议事区  QQ群号：413102158
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface NSTimer (ForLMJEndlessLoopScrollView)
+@interface UIView (ForLMJEndlessLoopScrollView)
 
-// 暂停
-- (void)pause;
-// 重新开始
-- (void)restart;
-// 延迟一定时间启动
-- (void)restartAfterTimeInterval:(NSTimeInterval)interval;
+- (UIView *)copyView; // 复制一个相同的UIView
 
 @end

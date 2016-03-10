@@ -5,10 +5,15 @@
 //  Created by Major on 16/3/10.
 //  Copyright © 2016年 iOS开发者公会. All rights reserved.
 //
+//  iOS开发者公会-技术1群 QQ群号：87440292
+//  iOS开发者公会-技术2群 QQ群号：232702419
+//  iOS开发者公会-议事区  QQ群号：413102158
+//
 
 #import "LMJEndlessLoopScrollView.h"
 
 #import "NSTimer+ForLMJEndlessLoopScrollView.h"
+#import "UIView+ForLMJEndlessLoopScrollView.h"
 
 #define SelfWidth_LMJ     (self.frame.size.width)
 #define SelfHeight_LMJ    (self.frame.size.height)
@@ -43,14 +48,14 @@
 #pragma mark - Init
 
 - (void)initData{
-    _currentPageIndex  = 0;
-    _totalPageCount    = 0;
-    
     _animationTimer    = nil;
     _animationDuration = 0;
 }
 
 - (void)initAnimationScrollTimerWithDuration:(NSTimeInterval)duration{
+    
+    _animationDuration = duration;
+    
     if (duration > 0) {
         _animationTimer = [NSTimer scheduledTimerWithTimeInterval:duration
                                                            target:self
@@ -71,14 +76,13 @@
 }
 
 - (void)buildScrollView{
-    self.autoresizesSubviews = YES;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SelfWidth_LMJ, SelfHeight_LMJ)];
-    _scrollView.autoresizingMask = 0xFF;
-    _scrollView.contentMode      = UIViewContentModeCenter;
-    _scrollView.delegate      = self;
-    _scrollView.contentSize   = CGSizeMake(SelfWidth_LMJ *3, SelfHeight_LMJ);
-    _scrollView.contentOffset = CGPointMake(SelfWidth_LMJ, 0);
-    _scrollView.pagingEnabled = YES;
+    _scrollView.delegate         = self;
+    _scrollView.contentSize      = CGSizeMake(SelfWidth_LMJ *3, SelfHeight_LMJ);
+    _scrollView.contentOffset    = CGPointMake(SelfWidth_LMJ, 0);
+    _scrollView.pagingEnabled    = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.showsVerticalScrollIndicator   = NO;
     [self addSubview:_scrollView];
 }
 
@@ -87,7 +91,16 @@
 - (void)setDelegate:(id<LMJEndlessLoopScrollViewDelegate>)delegate{
     _delegate = delegate;
     
-    if ([delegate respondsToSelector:@selector(numberOfContentViewsInLoopScrollView:)]) {
+    [self reloadData];
+}
+
+#pragma mark - ReloadData
+
+- (void)reloadData{
+    _currentPageIndex  = 0;
+    _totalPageCount    = 0;
+    
+    if ([self.delegate respondsToSelector:@selector(numberOfContentViewsInLoopScrollView:)]) {
         _totalPageCount = [self.delegate numberOfContentViewsInLoopScrollView:self];
     }else{
         NSAssert(NO, @"请实现numberOfContentViewsInLoopScrollView:代理函数");
@@ -99,7 +112,8 @@
 
 #pragma mark - Action
 - (void)startScroll:(NSTimer *)timer{
-    CGPoint newOffset = CGPointMake(_scrollView.contentOffset.x +SelfWidth_LMJ, 0);
+    CGFloat contentOffsetX = ( (int)(_scrollView.contentOffset.x +SelfWidth_LMJ) / (int)SelfWidth_LMJ ) * SelfWidth_LMJ;
+    CGPoint newOffset = CGPointMake(contentOffsetX, 0);
     [_scrollView setContentOffset:newOffset animated:YES];
 }
 
@@ -116,22 +130,32 @@
     
     int contentOffsetX = scrollView.contentOffset.x;
     
+   
     
     if(contentOffsetX >= (2 * SelfWidth_LMJ)) {
         _currentPageIndex = [self getNextPageIndexWithCurrentPageIndex:_currentPageIndex];
+        
+        // 调用代理函数 当前页面序号
+        if ([self.delegate respondsToSelector:@selector(loopScrollView:currentContentViewAtIndex:)]) {
+            [self.delegate loopScrollView:self currentContentViewAtIndex:_currentPageIndex];
+        }
+        
         [self resetContentViews];
     }
     
     
     if(contentOffsetX <= 0) {
         _currentPageIndex = [self getPreviousPageIndexWithCurrentPageIndex:_currentPageIndex];
+        
+        // 调用代理函数 当前页面序号
+        if ([self.delegate respondsToSelector:@selector(loopScrollView:currentContentViewAtIndex:)]) {
+            [self.delegate loopScrollView:self currentContentViewAtIndex:_currentPageIndex];
+        }
+        
         [self resetContentViews];
     }
     
-    // 调用代理函数 当前页面序号
-    if ([self.delegate respondsToSelector:@selector(loopScrollView:currentContentViewAtIndex:)]) {
-        [self.delegate loopScrollView:self currentContentViewAtIndex:_currentPageIndex];
-    }
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -157,7 +181,7 @@
         currentContentView  = [self.delegate loopScrollView:self contentViewAtIndex:currentPageIndex];
         nextContentView     = [self.delegate loopScrollView:self contentViewAtIndex:nextPageIndex];
         
-        NSArray * viewsArr = @[previousContentView,currentContentView,nextContentView];
+        NSArray * viewsArr = @[[previousContentView copyView],[currentContentView copyView],[nextContentView copyView]]; // copy操作主要是为了只有两张内容视图的情况
         
         for (int i = 0; i < viewsArr.count; i++) {
             UIView * contentView = viewsArr[i];
@@ -177,7 +201,6 @@
 //        NSAssert(NO, @"请实现loopScrollView:contentViewAtIndex:代理函数");
     }
 }
-
 
 // 获取当前页上一页的序号
 - (NSInteger)getPreviousPageIndexWithCurrentPageIndex:(NSInteger)currentIndex{

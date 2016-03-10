@@ -17,6 +17,7 @@
 		2AF0B2E91C91210600148105 /* LMJEndlessLoopScrollUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0B2E81C91210600148105 /* LMJEndlessLoopScrollUITests.m */; };
 		2AF0B2F91C91214700148105 /* LMJEndlessLoopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0B2F81C91214700148105 /* LMJEndlessLoopScrollView.m */; };
 		2AF0B2FC1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0B2FB1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.m */; };
+		2AF0B3011C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0B3001C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		2AF0B2F81C91214700148105 /* LMJEndlessLoopScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJEndlessLoopScrollView.m; sourceTree = "<group>"; };
 		2AF0B2FA1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+ForLMJEndlessLoopScrollView.h"; sourceTree = "<group>"; };
 		2AF0B2FB1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+ForLMJEndlessLoopScrollView.m"; sourceTree = "<group>"; };
+		2AF0B2FF1C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ForLMJEndlessLoopScrollView.h"; sourceTree = "<group>"; };
+		2AF0B3001C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ForLMJEndlessLoopScrollView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,8 @@
 				2AF0B2F81C91214700148105 /* LMJEndlessLoopScrollView.m */,
 				2AF0B2FA1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.h */,
 				2AF0B2FB1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.m */,
+				2AF0B2FF1C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.h */,
+				2AF0B3001C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.m */,
 			);
 			path = LMJEndlessLoopScrollView;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AF0B2CB1C91210600148105 /* ViewController.m in Sources */,
+				2AF0B3011C919C6E00148105 /* UIView+ForLMJEndlessLoopScrollView.m in Sources */,
 				2AF0B2FC1C914E8E00148105 /* NSTimer+ForLMJEndlessLoopScrollView.m in Sources */,
 				2AF0B2C81C91210600148105 /* AppDelegate.m in Sources */,
 				2AF0B2F91C91214700148105 /* LMJEndlessLoopScrollView.m in Sources */,
@@ -518,6 +524,7 @@
 				2AF0B2EF1C91210600148105 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AF0B2F01C91210600148105 /* Build configuration list for PBXNativeTarget "LMJEndlessLoopScrollTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +533,7 @@
 				2AF0B2F21C91210600148105 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AF0B2F31C91210600148105 /* Build configuration list for PBXNativeTarget "LMJEndlessLoopScrollUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +542,7 @@
 				2AF0B2F51C91210600148105 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
